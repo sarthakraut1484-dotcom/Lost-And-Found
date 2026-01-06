@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Lost & Found</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative background elements */
+    body::before,
+    body::after {
+      content: "";
+      position: absolute;
+      filter: blur(80px);
+      opacity: 0.5;
+      transform: translateZ(0);
+      pointer-events: none;
+    }
+
+    body::before {
+      width: 600px;
+      height: 600px;
+      left: -200px;
+      top: 10%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+      border-radius: 50%;
+    }
+
+    body::after {
+      width: 500px;
+      height: 500px;
+      right: -150px;
+      bottom: 10%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
+      border-radius: 50%;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      padding: 50px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      width: 100%;
+      max-width: 450px;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+      margin-bottom: 10px;
+      font-size: 36px;
+      font-weight: 800;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .subtitle {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 35px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: rgba(255, 255, 255, 0.95);
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px 18px;
+      border: 2px solid rgba(255, 255, 255, 0.25);
+      border-radius: 12px;
+      font-size: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      transition: all 0.3s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
+    }
+
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-radius: 50px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      margin-top: 12px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .link {
+      text-align: center;
+      margin-top: 25px;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 14px;
+    }
+
+    .link a {
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .link a:hover {
+      text-decoration: underline;
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .back-link a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+
+    .back-link a:hover {
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 40px 30px;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+
+      .subtitle {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Welcome Back</h1>
+    <p class="subtitle">Sign in to access the Lost & Found system</p>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required>
+      </div>
+
+      <button type="submit" class="btn">Login</button>
+
+      <div class="link">
+        Don't have an account? <a href="signup.html">Sign Up</a>
+      </div>
+
+      <div class="back-link">
+        <a href="index.html">← Back to Home</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Check if user is already logged in
+    window.addEventListener('DOMContentLoaded', function () {
+      const currentUser = localStorage.getItem('currentUser');
+      if (currentUser) {
+        window.location.href = 'dashboard.html';
+      }
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      // Validate inputs
+      if (!email || !password) {
+        alert('❌ Please fill in all fields!');
+        return;
+      }
+
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert('❌ Please enter a valid email address!');
+        return;
+      }
+
+      // Check for admin credentials
+      const ADMIN_EMAIL = 'admin@lostandfound.com';
+      const ADMIN_PASSWORD = 'admin123';
+
+      if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+        // Admin login
+        localStorage.setItem('currentUser', JSON.stringify({
+          id: 'admin',
+          name: 'Administrator',
+          email: ADMIN_EMAIL,
+          isAdmin: true,
+          loginTime: new Date().toISOString()
+        }));
+
+        alert('✅ Admin login successful! Welcome, Administrator!');
+        window.location.href = 'admin.html';
+        return;
+      }
+
+      try {
+        // Check user credentials with server
+        const response = await fetch('http://localhost:3000/api/users/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password
+          })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          // Successful login
+          localStorage.setItem('currentUser', JSON.stringify({
+            id: result.user.id,
+            name: result.user.name,
+            email: result.user.email,
+            loginTime: new Date().toISOString()
+          }));
+
+          // Show success message
+          alert('✅ Login successful! Welcome back, ' + result.user.name + '!');
+
+          // Redirect to dashboard
+          window.location.href = 'dashboard.html';
+        } else {
+          // Check if user doesn't exist
+          if (result.error && result.error.includes('not found')) {
+            const goToSignup = confirm('❌ No account found with this email!\n\nWould you like to sign up instead?');
+            if (goToSignup) {
+              window.location.href = 'signup.html';
+            }
+          } else {
+            // Wrong password
+            alert('❌ Invalid email or password!\n\nPlease check your credentials and try again.');
+          }
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        alert('❌ Connection error. Please make sure the server is running and try again.');
+      }
+    });
+
+    // Show/Hide password toggle (if you want to add this feature)
+    function togglePassword() {
+      const passwordInput = document.getElementById('password');
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+    }
+  </script>
+</body>
+
+</html>

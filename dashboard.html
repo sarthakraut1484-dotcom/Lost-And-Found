@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Lost & Found</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="logo">Lost & Found</div>
+        <div class="user-info">
+            <div class="notification-bell" id="notificationBell">
+                🔔
+                <span class="notification-badge" id="notificationBadge">0</span>
+            </div>
+            <span class="user-name" id="userName">👤 User</span>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+        </div>
+    </header>
+
+    <!-- NOTIFICATION DROPDOWN -->
+    <div class="notification-dropdown" id="notificationDropdown">
+        <div class="notification-dropdown-header">
+            <h3>Notifications</h3>
+            <span class="mark-all-read" id="markAllRead">Mark all as read</span>
+        </div>
+        <div class="notification-dropdown-body" id="notificationDropdownBody">
+            <div class="notification-empty">
+                <div style="font-size:48px;margin-bottom:10px">🔔</div>
+                <div>No notifications yet</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTAINER WITH SIDEBAR -->
+    <div class="main-container">
+        <!-- VERTICAL SIDEBAR -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <button class="nav-item" data-tab="lost" onclick="switchTab('lost')">
+                    <span class="nav-icon">🔍</span>
+                    <span class="nav-text">Lost Items</span>
+                </button>
+                <button class="nav-item" data-tab="found" onclick="switchTab('found')">
+                    <span class="nav-icon">✅</span>
+                    <span class="nav-text">Found Items</span>
+                </button>
+                <button class="nav-item" data-tab="report" onclick="switchTab('report')">
+                    <span class="nav-icon">📝</span>
+                    <span class="nav-text">Report Item</span>
+                </button>
+                <button class="nav-item" data-tab="my-items" onclick="switchTab('my-items')">
+                    <span class="nav-icon">📋</span>
+                    <span class="nav-text">My Reports</span>
+                </button>
+                <button class="nav-item" data-tab="notifications" onclick="switchTab('notifications')">
+                    <span class="nav-icon">🔔</span>
+                    <span class="nav-text">Notifications</span>
+                    <span class="notification-count" id="sidebarNotificationCount">0</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- CONTENT AREA -->
+        <main class="content-area">
+            <!-- LOST ITEMS TAB (DEFAULT) -->
+            <div id="lost" class="tab-content active">
+                <div class="tab-header">
+                    <h1>🔍 Lost Items</h1>
+                    <p>Browse items that people have reported as lost</p>
+                </div>
+                <div class="items-grid" id="lostItemsGrid">
+                    <div class="loading">Loading lost items...</div>
+                </div>
+            </div>
+
+            <!-- FOUND ITEMS TAB -->
+            <div id="found" class="tab-content">
+                <div class="tab-header">
+                    <h1>✅ Found Items</h1>
+                    <p>Browse items that people have found</p>
+                </div>
+                <div class="items-grid" id="foundItemsGrid">
+                    <div class="loading">Loading found items...</div>
+                </div>
+            </div>
+
+            <!-- REPORT ITEM TAB -->
+            <div id="report" class="tab-content">
+                <div class="tab-header">
+                    <h1>📝 Report an Item</h1>
+                    <p>Report a lost or found item</p>
+                </div>
+                <div class="report-form">
+                    <form id="reportForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="itemType">Item Type *</label>
+                                <select id="itemType" required>
+                                    <option value="">Select type</option>
+                                    <option value="lost">Lost Item</option>
+                                    <option value="found">Found Item</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="category">Category *</label>
+                                <select id="category" required>
+                                    <option value="">Select category</option>
+                                    <option value="electronics">Electronics</option>
+                                    <option value="documents">Documents</option>
+                                    <option value="accessories">Accessories</option>
+                                    <option value="clothing">Clothing</option>
+                                    <option value="bags">Bags & Luggage</option>
+                                    <option value="keys">Keys</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="itemName">Item Name *</label>
+                            <input type="text" id="itemName" placeholder="e.g., iPhone 13 Pro" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description *</label>
+                            <textarea id="description"
+                                placeholder="Provide detailed description (color, brand, unique features, etc.)"
+                                required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="itemImage">Upload Image</label>
+                            <div class="image-upload-area" id="imageUploadArea">
+                                <input type="file" id="itemImage" accept="image/*" style="display: none;">
+                                <div class="upload-placeholder" id="uploadPlaceholder">
+                                    <div class="upload-icon">📷</div>
+                                    <p>Click to upload or drag and drop</p>
+                                    <small>PNG, JPG, GIF up to 5MB</small>
+                                </div>
+                                <div class="image-preview" id="imagePreview" style="display: none;">
+                                    <img id="previewImg" src="" alt="Preview">
+                                    <button type="button" class="remove-image" id="removeImage">✕</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="location">Location *</label>
+                                <input type="text" id="location" placeholder="Where was it lost/found?" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="date">Date *</label>
+                                <input type="date" id="date" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact">Contact Information *</label>
+                            <input type="text" id="contact" placeholder="Phone or email" required>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <span>Submit Report</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- MY REPORTS TAB -->
+            <div id="my-items" class="tab-content">
+                <div class="tab-header">
+                    <h1>📋 My Reports</h1>
+                    <p>View all items you've reported</p>
+                </div>
+                <div class="items-grid" id="myItemsGrid">
+                    <div class="loading">Loading your reports...</div>
+                </div>
+            </div>
+
+            <!-- NOTIFICATIONS TAB -->
+            <div id="notifications" class="tab-content">
+                <div class="tab-header">
+                    <h1>🔔 Notifications</h1>
+                    <p>View all your notifications and matched items</p>
+                </div>
+                <div id="notificationsGrid">
+                    <div class="loading">Loading notifications...</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ITEM DETAILS MODAL -->
+    <div class="modal" id="itemDetailsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📋 Item Details</h2>
+                <button class="modal-close" onclick="closeItemDetailsModal()">✕</button>
+            </div>
+            <div id="itemDetailsContent">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button class="modal-back-btn" onclick="closeItemDetailsModal()">← Back</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+
+</html>
